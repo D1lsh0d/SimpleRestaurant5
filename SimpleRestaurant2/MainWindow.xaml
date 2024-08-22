@@ -5,8 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SimpleRestaurant2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Los Pollos Hermanos" Height="550" Width="500">
     <Grid>
+        <GroupBox Header="Menu"
+                  Height="150"
+                  Margin="20"
+                  Padding="10">
+            <StackPanel
+                Orientation="Horizontal">
+                <StackPanel>
+                    <Label>How many chicken?</Label>
+                    <Label>How many eggs?</Label>
+                </StackPanel>
+                <StackPanel>
+                    <TextBox 
+                        Name="chickenInput"
+                        Width="30"
+                        Margin="5"/>
+                    <TextBox
+                        Name="eggInput"
+                        Width="30"
+                        Margin="5"
+                        />
+                </StackPanel>
+                
+            </StackPanel>
+        </GroupBox>
+
 
     </Grid>
 </Window>
