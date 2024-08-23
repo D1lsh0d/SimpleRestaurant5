@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SimpleRestaurant2.Models
 {
-    internal class EggOrder : Order
+    public class EggOrder : Order
     {
         private int? _quality = null;
         private int _callCount = 0;

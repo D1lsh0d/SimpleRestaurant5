@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SimpleRestaurant2.Models
 {
-    internal class ChickenOrder : Order
+    public class ChickenOrder : Order
     {
         public ChickenOrder(int quantity) : base(quantity)
         {
@@ -16,6 +16,6 @@ namespace SimpleRestaurant2.Models
         public void CutUp()
         {
 
-        }       
+        }
     }
 }

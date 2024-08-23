@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SimpleRestaurant2.Models
 {
-    internal class Order
+    public class Order
     {
         protected int _quantity;
         protected bool _cooked;
