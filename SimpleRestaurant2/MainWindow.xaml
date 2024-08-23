@@ -5,33 +5,83 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SimpleRestaurant2"
         mc:Ignorable="d"
-        Title="Los Pollos Hermanos" Height="550" Width="500">
+        Title="Los Pollos Hermanos" Height="550" Width="500" FontSize="16" ResizeMode="NoResize" Icon="/los-pollos-hermanos.png">
     <Grid>
-        <GroupBox Header="Menu"
+        <StackPanel
+            Orientation="Vertical"
+            Margin="20">
+            <GroupBox Header="Menu"
                   Height="150"
-                  Margin="20"
-                  Padding="10">
+                  Padding="10"> 
+                <StackPanel
+                     Orientation="Vertical">
+                    <StackPanel
+                        Orientation="Horizontal">
+                        <StackPanel
+                            VerticalAlignment="Center">
+                            <Label>How many chicken?</Label>
+                            <Label>How many eggs?</Label>
+                        </StackPanel>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBox 
+                                Name="chickenInput"
+                                Width="40"
+                                Margin="5"/>        
+                            <TextBox
+                                Name="eggInput"
+                                Width="40"
+                                Margin="5"
+                                />
+                        </StackPanel>
+                        <StackPanel
+                                VerticalAlignment="Center"
+                                Margin="50 0 20 0">
+                            <ComboBox
+                                Name="drinksComboBox"
+                                Width="150">
+                                <ComboBoxItem>Tea</ComboBoxItem>
+                                <ComboBoxItem>Coffee</ComboBoxItem>
+                                <ComboBoxItem>Fresh juice</ComboBoxItem>
+                                <ComboBoxItem>No drink</ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+                    </StackPanel>
+                    <Button
+                        HorizontalAlignment="Center"
+                        Name="receiveButton"
+                        Margin="0 10 0 0"
+                        Width="300">        
+                        Receive this request from a Customer
+                    </Button>
+                </StackPanel>
+
+            </GroupBox>
+            <Button
+                Name="sendRequestsButton"
+                Margin="0 10 0 0"
+                Width="300">
+                Send all Customer requests to the Cook
+            </Button>
             <StackPanel
-                Orientation="Horizontal">
-                <StackPanel>
-                    <Label>How many chicken?</Label>
-                    <Label>How many eggs?</Label>
-                </StackPanel>
-                <StackPanel>
-                    <TextBox 
-                        Name="chickenInput"
-                        Width="30"
-                        Margin="5"/>
-                    <TextBox
-                        Name="eggInput"
-                        Width="30"
-                        Margin="5"
-                        />
-                </StackPanel>
-                
+                Orientation="Horizontal"
+                Margin="40 5 20 0">
+                <Label>Egg quality:</Label>
+                <Label Name="eggQualityLabel" Width="50">0</Label>
             </StackPanel>
-        </GroupBox>
-
-
+            <Button
+                Name="serveRequestsButton"
+                Margin="0 5 0 10"
+                Width="300">        
+                Serve prepared food to the Customers
+            </Button>
+            <Label>Results:</Label>
+            <ScrollViewer
+                Height="200">
+                <TextBlock
+                    Name="resultsTextBlock"
+                    TextWrapping="Wrap">
+                </TextBlock>
+            </ScrollViewer>
+        </StackPanel>
     </Grid>
 </Window>
