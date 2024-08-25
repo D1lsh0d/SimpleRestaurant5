@@ -21,7 +21,7 @@ namespace SimpleRestaurant2.Models
             return "Requests were received by cook";
         }
 
-        public string PrepareFood()
+        public void PrepareFood()
         {
             for (int i = 0; i < _requests.Length; i++)
             {

@@ -1,6 +1,6 @@
 ﻿namespace SimpleRestaurant2.Models
 {
-    public enum Beverage 
+    public enum Beverage
     {
         Tea,
         Coffee,

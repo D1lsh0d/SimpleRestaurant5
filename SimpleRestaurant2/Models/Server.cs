@@ -10,6 +10,7 @@ namespace SimpleRestaurant2.Models
     {
         private Customer[] _requests = new Customer[8];
         private int _customerCount = 0;
+        public int CustomerCount { get => _customerCount; }
         private Cook _cook = new Cook();
         public Server()
         {
@@ -34,7 +35,14 @@ namespace SimpleRestaurant2.Models
 
         public void SendRequests()
         {
-            _cook.RecieveRequests(_requests);
+            if (_requests.Any(request => request != null))
+            {
+                _cook.RecieveRequests(_requests);
+            }
+            else
+            {
+                throw new Exception("There weren't any requests yet");
+            }
         }
     }
 }
