@@ -49,7 +49,7 @@ namespace SimpleRestaurant2
                 try
                 {
                     _server.Recieve(chickenQuantity, eggQuantity, (Beverage)drinksComboBox.SelectedItem);
-                    resultsTextBlock.Text += "\nServer received order from customer " + _server.CustomerCount;
+                    resultsTextBlock.Text += "\nServer received order from customer " + (_server.CustomerCount - 1);
                 }
                 catch (Exception ex)
                 {
@@ -58,7 +58,7 @@ namespace SimpleRestaurant2
             }
             else
             {
-                resultsTextBlock.Text += "\nWarning: enter an numeric value";
+                resultsTextBlock.Text += "\nWarning: enter an numeric value of quantity";
             }
         }
 
@@ -66,7 +66,20 @@ namespace SimpleRestaurant2
         {
             try
             {
-                _server.SendRequests();
+                resultsTextBlock.Text += "\nCook received all requests";
+                resultsTextBlock.Text += _server.SendRequests();
+            }
+            catch (Exception ex)
+            {
+                resultsTextBlock.Text += $"\nError: {ex.Message}";
+            }
+        }
+
+        private void serveRequestsButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                resultsTextBlock.Text += _server.ServeRequests();
             }
             catch (Exception ex)
             {

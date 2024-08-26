@@ -27,13 +27,12 @@
                                 Name="chickenInput"
                                 Width="40"
                                 Margin="5"
-                                PreviewKeyDown="checkNumericInput"/>        
+                                PreviewKeyDown="checkNumericInput">0</TextBox>
                             <TextBox
                                 Name="eggInput"
                                 Width="40"
                                 Margin="5"
-                                PreviewKeyDown="checkNumericInput"
-                                />
+                                PreviewKeyDown="checkNumericInput">0</TextBox>
                         </StackPanel>
                         <StackPanel
                                 VerticalAlignment="Center"
@@ -57,7 +56,8 @@
             <Button
                 Name="sendRequestsButton"
                 Margin="0 10 0 0"
-                Width="300" Click="sendRequestsButton_Click">
+                Width="300" 
+                Click="sendRequestsButton_Click">
                 Send all Customer requests to the Cook
             </Button>
             <StackPanel
@@ -69,7 +69,8 @@
             <Button
                 Name="serveRequestsButton"
                 Margin="0 5 0 10"
-                Width="300">        
+                Width="300"
+                Click="serveRequestsButton_Click">        
                 Serve prepared food to the Customers
             </Button>
             <Label>Results:</Label>

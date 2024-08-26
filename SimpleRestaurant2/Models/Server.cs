@@ -30,19 +30,43 @@ namespace SimpleRestaurant2.Models
 
                 _customerCount++;
             }
-            else { throw new Exception("Can't serve more than 8 customers at once"); }
+            else { throw new InvalidOperationException("Can't serve more than 8 customers at once"); }
         }
 
-        public void SendRequests()
+        public string SendRequests()
         {
-            if (_requests.Any(request => request != null))
+            if (_requests.All(request => request == null))
             {
-                _cook.RecieveRequests(_requests);
+                throw new InvalidOperationException("There weren't any valid requests yet.");
             }
-            else
+
+            return _cook.RecieveRequests(_requests);
+
+        }
+
+        public string ServeRequests()
+        {
+            if (_requests.All(request => request == null))
             {
-                throw new Exception("There weren't any requests yet");
+                throw new InvalidOperationException("There weren't any valid requests yet.");
             }
+
+            var result = new StringBuilder("\n");
+            for (int i = 0; i < _requests.Length; i++)
+            {
+                var customerRequest = _requests[i];
+
+                if (customerRequest != null)
+                {
+                    var chickenQuantity = customerRequest.chickenOrder?.GetQuantity() ?? 0;
+                    var eggQuantity = customerRequest.eggOrder?.GetQuantity() ?? 0;
+                    var beverage = customerRequest.beverage?.ToString().Replace('_', ' ');
+
+                    result.AppendLine($"Customer {i} is served {chickenQuantity} chicken, {eggQuantity} egg, {beverage}");
+                }
+            }
+
+            return result.ToString();
         }
     }
 }

@@ -18,21 +18,16 @@ namespace SimpleRestaurant2.Models
         public string RecieveRequests(Customer[] requests)
         {
             _requests = requests;
-            return "Requests were received by cook";
+            PrepareFood();
+            return "\nRequests were prepared by cook";
         }
 
-        public void PrepareFood()
+        private void PrepareFood()
         {
-            for (int i = 0; i < _requests.Length; i++)
+            foreach (Customer customerRequest in _requests)
             {
-                if (_requests[i].eggOrder is not null)
-                {
-                    _requests[i].eggOrder.Cook();
-                }
-                if (_requests[i].chickenOrder is not null)
-                {
-                    _requests[i].chickenOrder.Cook();
-                }
+                customerRequest?.eggOrder?.Cook();
+                customerRequest?.chickenOrder?.Cook();
             }
         }
     }
