@@ -9,17 +9,17 @@ namespace SimpleRestaurant2.Models
     public class Cook
     {
         private Customer[] _requests = new Customer[8];
-
+        private bool _isPrepared;
+        public bool IsPrepared { get => _isPrepared; }
         public Cook()
         {
             
         }
 
-        public string RecieveRequests(Customer[] requests)
+        public void RecieveRequests(Customer[] requests)
         {
             _requests = requests;
             PrepareFood();
-            return "\nRequests were prepared by cook";
         }
 
         private void PrepareFood()
@@ -29,6 +29,8 @@ namespace SimpleRestaurant2.Models
                 customerRequest?.eggOrder?.Cook();
                 customerRequest?.chickenOrder?.Cook();
             }
+
+            _isPrepared = true;
         }
     }
 }

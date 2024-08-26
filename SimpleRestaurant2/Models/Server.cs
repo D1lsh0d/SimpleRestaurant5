@@ -33,14 +33,14 @@ namespace SimpleRestaurant2.Models
             else { throw new InvalidOperationException("Can't serve more than 8 customers at once"); }
         }
 
-        public string SendRequests()
+        public void SendRequests()
         {
             if (_requests.All(request => request == null))
             {
                 throw new InvalidOperationException("There weren't any valid requests yet.");
             }
 
-            return _cook.RecieveRequests(_requests);
+            _cook.RecieveRequests(_requests);
 
         }
 
@@ -49,6 +49,11 @@ namespace SimpleRestaurant2.Models
             if (_requests.All(request => request == null))
             {
                 throw new InvalidOperationException("There weren't any valid requests yet.");
+            }
+
+            if (_cook.IsPrepared == false)
+            {
+                throw new InvalidOperationException("Cook haven't received request yet");
             }
 
             var result = new StringBuilder("\n");

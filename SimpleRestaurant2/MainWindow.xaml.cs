@@ -66,8 +66,11 @@ namespace SimpleRestaurant2
         {
             try
             {
-                resultsTextBlock.Text += "\nCook received all requests";
-                resultsTextBlock.Text += _server.SendRequests();
+                _server.SendRequests();
+                resultsTextBlock.Text += "\nCook received all the requests";
+                Thread.Sleep(2000);
+                resultsTextBlock.Text += "\nCook prepared all the food";
+
             }
             catch (Exception ex)
             {
