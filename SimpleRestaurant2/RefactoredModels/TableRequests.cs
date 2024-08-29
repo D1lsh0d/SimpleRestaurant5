@@ -28,7 +28,8 @@ namespace SimpleRestaurant2.RefactoredModels
                 return result;
             }
         }
-        
+        public IMenuItem[] this[int customer] => customers[customer].customerRequests;
+
         public void Add(int customer, IMenuItem menuItem)
         {
             customers[customer].AddMenuItem(menuItem);
