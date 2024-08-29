@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleRestaurant2.RefactoredModels
+namespace SimpleRestaurant2.RefactoredModels.Food
 {
     public sealed class Chicken : CookedFood
     {
@@ -27,7 +27,7 @@ namespace SimpleRestaurant2.RefactoredModels
 
         public void CutUp()
         {
-            
+
         }
 
         public override void Request()
