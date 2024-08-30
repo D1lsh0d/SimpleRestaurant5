@@ -1,9 +1,8 @@
 ﻿namespace SimpleRestaurant2.RefactoredModels
 {
-    public struct Customer
+    public class Customer
     {
-        public IMenuItem[] customerRequests = new IMenuItem[3];
-
+        public IMenuItem[] customerRequests;
         public Customer()
         {
             customerRequests = new IMenuItem[3];

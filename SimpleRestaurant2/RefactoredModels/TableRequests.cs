@@ -2,7 +2,7 @@
 {
     public class TableRequests
     {
-        private Customer[] customers = new Customer[8];
+        private Customer[] customers;
         private bool _isCooked;
         public bool IsCooked
         {
@@ -20,6 +20,12 @@
         
         public TableRequests()
         {
+            customers = new Customer[8];
+            // inizializing customers
+            for (int i = 0; i < 8; i++)
+            {
+                customers[i] = new Customer();
+            }
         }
 
         public IMenuItem[] this[Type type]

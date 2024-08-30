@@ -64,22 +64,20 @@ namespace SimpleRestaurant2.RefactoredModels
                 throw new InvalidOperationException("There weren't any valid requests yet.");
             }
 
-            if (_requests.IsCooked)
-            {
-                throw new InvalidOperationException("Cook haven't received requests yet");
-            }
-
             var result = new StringBuilder("\n");
             for (int i = 0; i < _customerCount; i++)
             {
                 var customerRequest = _requests[i];
-                result.AppendLine($"Customer {i} is served ");
+                var line = new StringBuilder($"Customer {i} is served ");
                 foreach (IMenuItem item in customerRequest)
                 {
-                    result.Append(item.Serve());
+                    line.Append(item.Serve());
                 }
+                result.AppendLine(line.ToString());
             }
+
             _requests = new TableRequests();
+            _customerCount = 0;
             return result.ToString();
         }
     }
