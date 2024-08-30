@@ -2,18 +2,22 @@
 {
     public class Customer
     {
-        public ChickenOrder? chickenOrder;
-        public EggOrder? eggOrder;
-        public Beverage? beverage;
-
+        public IMenuItem[] customerRequests;
         public Customer()
         {
+            customerRequests = new IMenuItem[3];
         }
 
-        public Customer(ChickenOrder? chickenOrder, EggOrder? eggOrder, Beverage? beverage) { 
-            this.beverage = beverage;
-            this.eggOrder = eggOrder;
-            this.chickenOrder = chickenOrder;
+        public void AddMenuItem(IMenuItem menuItem)
+        {
+            for (int i = 0; i < customerRequests.Length; i++)
+            {
+                if (customerRequests[i] is null)
+                {
+                    customerRequests[i] = menuItem;
+                    return;
+                }
+            }
         }
     }
 }

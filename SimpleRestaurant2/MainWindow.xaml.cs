@@ -1,4 +1,4 @@
-﻿using SimpleRestaurant2.RefactoredModels;
+﻿using SimpleRestaurant2.Models;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;

@@ -1,4 +1,4 @@
-﻿namespace SimpleRestaurant2.RefactoredModels
+﻿namespace SimpleRestaurant2.Models
 {
     public class TableRequests
     {

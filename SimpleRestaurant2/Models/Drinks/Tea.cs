@@ -1,4 +1,4 @@
-﻿namespace SimpleRestaurant2.RefactoredModels.Drinks
+﻿namespace SimpleRestaurant2.Models.Drinks
 {
     public class Tea : Drink
     {

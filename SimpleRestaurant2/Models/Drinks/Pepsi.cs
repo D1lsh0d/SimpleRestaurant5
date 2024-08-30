@@ -1,6 +1,6 @@
-﻿namespace SimpleRestaurant2.RefactoredModels.Drinks
+﻿namespace SimpleRestaurant2.Models.Drinks
 {
-    public class NoDrink : Drink
+    public sealed class Pepsi : Drink
     {
         public override void Request()
         {
@@ -9,7 +9,7 @@
 
         public override string Serve()
         {
-            return "no drink";
+            return "Pepsi";
         }
     }
 }

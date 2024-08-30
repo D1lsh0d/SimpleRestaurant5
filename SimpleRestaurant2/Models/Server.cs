@@ -3,74 +3,81 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SimpleRestaurant2.Models.Food;
+using SimpleRestaurant2.Models.Drinks;
 
 namespace SimpleRestaurant2.Models
 {
     public class Server
     {
-        private Customer[] _requests = new Customer[8];
         private int _customerCount = 0;
         public int CustomerCount { get => _customerCount; }
-        private Cook _cook = new Cook();
+        private TableRequests _requests;
         public Server()
         {
-            
+            _requests = new TableRequests();
         }
 
-        public void Recieve(int chickenQuantity, int eggQuantity, Beverage? beverage)
+        public void Recieve(int chickenQuantity, int eggQuantity, string drinkInput)
         {
-            if (_customerCount < 8)
+            Drink drink;
+            switch (drinkInput)
             {
-                _requests[_customerCount] = new Customer()
-                {
-                    chickenOrder = new ChickenOrder(chickenQuantity),
-                    eggOrder = new EggOrder(eggQuantity),
-                    beverage = beverage
-                };
+                case "Tea":
+                    drink = new Tea();
+                    break;
 
-                _customerCount++;
+                case "Coca-Cola":
+                    drink = new CocaCola();
+                    break;
+
+                case "Pepsi":
+                    drink = new Pepsi();
+                    break;
+
+                default:
+                    drink = new NoDrink();
+                    break;
             }
-            else { throw new InvalidOperationException("Can't serve more than 8 customers at once"); }
+
+            _requests.Add(_customerCount, new Chicken(chickenQuantity));
+            _requests.Add(_customerCount, new Egg(eggQuantity));
+            _requests.Add(_customerCount, drink);
+
+            _customerCount++;
         }
 
         public void SendRequests()
         {
-            if (_requests.All(request => request == null))
+            if (_requests.IsEmpty)
             {
                 throw new InvalidOperationException("There weren't any valid requests yet.");
             }
 
-            _cook.RecieveRequests(_requests);
-
+            Cook.Process(_requests);
         }
 
         public string ServeRequests()
         {
-            if (_requests.All(request => request == null))
+            if (_requests.IsEmpty)
             {
                 throw new InvalidOperationException("There weren't any valid requests yet.");
             }
 
-            if (_cook.IsPrepared == false)
-            {
-                throw new InvalidOperationException("Cook haven't received request yet");
-            }
-
             var result = new StringBuilder("\n");
-            for (int i = 0; i < _requests.Length; i++)
+            for (int i = 0; i < _customerCount; i++)
             {
                 var customerRequest = _requests[i];
-
-                if (customerRequest != null)
+                var line = new StringBuilder($"Customer {i} is served ");
+                foreach (IMenuItem item in customerRequest)
                 {
-                    var chickenQuantity = customerRequest.chickenOrder?.GetQuantity() ?? 0;
-                    var eggQuantity = customerRequest.eggOrder?.GetQuantity() ?? 0;
-                    var beverage = customerRequest.beverage?.ToString().Replace('_', ' ');
-
-                    result.AppendLine($"Customer {i} is served {chickenQuantity} chicken, {eggQuantity} egg, {beverage}");
+                    line.Append(item.Serve());
                 }
+                result.AppendLine(line.ToString());
             }
 
+            _requests = new TableRequests();
+            _customerCount = 0;
             return result.ToString();
         }
     }
