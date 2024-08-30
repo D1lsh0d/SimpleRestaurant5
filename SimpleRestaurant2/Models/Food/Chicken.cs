@@ -1,13 +1,6 @@
-﻿using SimpleRestaurant2.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SimpleRestaurant2.RefactoredModels
+﻿namespace SimpleRestaurant2.Models.Food
 {
-    public sealed class Chicken : CookedFood
+    public sealed class Chicken : CookedFood, IMenuItem
     {
         public Chicken(int quantity) : base(quantity) { }
         public override void Cook()
@@ -22,12 +15,12 @@ namespace SimpleRestaurant2.RefactoredModels
 
         public override string Serve()
         {
-            return $"{_quantity} chicken was cooked";
+            return $"{_quantity} chicken, ";
         }
 
         public void CutUp()
         {
-            
+
         }
 
         public override void Request()

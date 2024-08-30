@@ -4,16 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleRestaurant2.RefactoredModels
+namespace SimpleRestaurant2.Models.Food
 {
     public class Egg : CookedFood, IDisposable
     {
         private int? _quality = null;
         private int _callCount = 0;
-        private int rottenEggsCount = 0;
         private bool disposedValue;
 
-        public int RottenEggsCount { get => rottenEggsCount; }
         public Egg(int quantity) : base(quantity)
         {
             Random rnd = new();
@@ -27,7 +25,7 @@ namespace SimpleRestaurant2.RefactoredModels
 
         public override string Serve()
         {
-            throw new NotImplementedException();
+            return _quantity + " egg, ";
         }
         public int? GetQuality()
         {
@@ -45,7 +43,6 @@ namespace SimpleRestaurant2.RefactoredModels
         {
             if (GetQuality() < 25)
             {
-                rottenEggsCount++;
                 throw new Exception("Rotten egg");
             }
         }

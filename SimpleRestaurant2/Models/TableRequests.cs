@@ -1,10 +1,33 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace SimpleRestaurant2.RefactoredModels
+﻿namespace SimpleRestaurant2.Models
 {
     public class TableRequests
     {
-        public Customer[] customers = new Customer[8];
+        private Customer[] customers;
+        private bool _isCooked;
+        public bool IsCooked
+        {
+            get => _isCooked;
+            set
+            {
+                if (value != false)
+                {
+                    _isCooked = value;
+                }
+            }
+        }
+        private bool _isEmpty = true;
+        public bool IsEmpty { get => _isEmpty; }
+        
+        public TableRequests()
+        {
+            customers = new Customer[8];
+            // inizializing customers
+            for (int i = 0; i < 8; i++)
+            {
+                customers[i] = new Customer();
+            }
+        }
+
         public IMenuItem[] this[Type type]
         {
             get
@@ -28,10 +51,17 @@ namespace SimpleRestaurant2.RefactoredModels
                 return result;
             }
         }
-        
+        public IMenuItem[] this[int customer] => customers[customer].customerRequests;
+
         public void Add(int customer, IMenuItem menuItem)
         {
+            if (customer >= 8)
+            {
+                throw new Exception("Can't serve more than 8 customers at once");
+            }
+            
             customers[customer].AddMenuItem(menuItem);
+            _isEmpty = false;
         }
     }
 }

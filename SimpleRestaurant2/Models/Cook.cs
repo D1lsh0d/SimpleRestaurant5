@@ -1,36 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SimpleRestaurant2.Models.Food;
 
 namespace SimpleRestaurant2.Models
 {
-    public class Cook
+    public static class Cook
     {
-        private Customer[] _requests = new Customer[8];
-        private bool _isPrepared;
-        public bool IsPrepared { get => _isPrepared; }
-        public Cook()
+        public static void Process(TableRequests requests)
         {
-            
-        }
-
-        public void RecieveRequests(Customer[] requests)
-        {
-            _requests = requests;
-            PrepareFood();
-        }
-
-        private void PrepareFood()
-        {
-            foreach (Customer customerRequest in _requests)
+            if (requests.IsCooked)
             {
-                customerRequest?.eggOrder?.Cook();
-                customerRequest?.chickenOrder?.Cook();
+                throw new Exception("Order for that table was already cooked");
             }
 
-            _isPrepared = true;
+            IMenuItem[] chickens = requests[typeof(Chicken)];
+            IMenuItem[] eggs = requests[typeof(Egg)];
+
+            foreach (Chicken chicken in chickens) 
+            {
+                chicken.CutUp();
+                chicken.Cook();
+            }
+
+            foreach (Egg egg in eggs)
+            {
+                using (egg)
+                {
+                    egg.Crack();
+                    egg.DiscardShell();
+                    egg.Cook();
+                }
+            }
+
+            requests.IsCooked = true;
         }
     }
 }

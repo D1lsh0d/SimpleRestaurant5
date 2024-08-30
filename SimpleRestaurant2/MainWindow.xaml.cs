@@ -1,5 +1,4 @@
 ﻿using SimpleRestaurant2.Models;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -24,8 +23,8 @@ namespace SimpleRestaurant2
             InitializeComponent();
 
             // set the ComboBox's ItemsSource to the Enum values
-            drinksComboBox.ItemsSource = Enum.GetValues(typeof(Beverage));
-            drinksComboBox.SelectedItem = Beverage.No_drink;
+            drinksComboBox.ItemsSource = new string[]{ "Tea", "Coca-Cola", "Pepsi", "No drink"};
+            drinksComboBox.SelectedValue = "No drink";
         }
 
         private void checkNumericInput(object sender, KeyEventArgs e)
@@ -48,7 +47,7 @@ namespace SimpleRestaurant2
             {
                 try
                 {
-                    _server.Recieve(chickenQuantity, eggQuantity, (Beverage)drinksComboBox.SelectedItem);
+                    _server.Recieve(chickenQuantity, eggQuantity, drinksComboBox.SelectedValue.ToString());
                     resultsTextBlock.Text += "\nServer received order from customer " + (_server.CustomerCount - 1);
                 }
                 catch (Exception ex)
