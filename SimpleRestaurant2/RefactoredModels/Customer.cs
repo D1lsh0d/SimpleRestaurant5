@@ -6,6 +6,7 @@
 
         public Customer()
         {
+            customerRequests = new IMenuItem[3];
         }
 
         public void AddMenuItem(IMenuItem menuItem)

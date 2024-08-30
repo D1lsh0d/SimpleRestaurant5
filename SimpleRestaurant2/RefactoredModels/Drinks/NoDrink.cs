@@ -1,11 +1,7 @@
 ﻿namespace SimpleRestaurant2.RefactoredModels.Drinks
 {
-    public class Tea : Drink
+    public class NoDrink : Drink
     {
-        public Tea()
-        {
-            
-        }
         public override void Request()
         {
             throw new NotImplementedException();
@@ -13,7 +9,7 @@
 
         public override string Serve()
         {
-            return "Tea";
+            return "no drink";
         }
     }
 }

@@ -18,11 +18,31 @@ namespace SimpleRestaurant2.RefactoredModels
             _requests = new TableRequests();
         }
 
-        public void Recieve(int chickenQuantity, int eggQuantity, Drink? beverage)
+        public void Recieve(int chickenQuantity, int eggQuantity, string drinkInput)
         {
+            Drink drink;
+            switch (drinkInput)
+            {
+                case "Tea":
+                    drink = new Tea();
+                    break;
+
+                case "Coca-Cola":
+                    drink = new CocaCola();
+                    break;
+
+                case "Pepsi":
+                    drink = new Pepsi();
+                    break;
+
+                default:
+                    drink = new NoDrink();
+                    break;
+            }
+
             _requests.Add(_customerCount, new Chicken(chickenQuantity));
             _requests.Add(_customerCount, new Egg(eggQuantity));
-            _requests.Add(_customerCount, beverage);
+            _requests.Add(_customerCount, drink);
 
             _customerCount++;
         }
@@ -59,7 +79,7 @@ namespace SimpleRestaurant2.RefactoredModels
                     result.Append(item.Serve());
                 }
             }
-
+            _requests = new TableRequests();
             return result.ToString();
         }
     }
