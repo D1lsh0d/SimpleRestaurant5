@@ -25,7 +25,7 @@ namespace SimpleRestaurant2.RefactoredModels.Food
 
         public override string Serve()
         {
-            return _quantity + " chicken";
+            return _quantity + " egg, ";
         }
         public int? GetQuality()
         {
