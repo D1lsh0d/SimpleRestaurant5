@@ -1,10 +1,24 @@
 ﻿using SimpleRestaurant2.Models.Food;
+using static SimpleRestaurant2.Models.Server;
 
 namespace SimpleRestaurant2.Models
 {
-    public static class Cook
+    public class Cook
     {
-        public static void Process(TableRequests requests)
+        
+        public delegate void CookDelegate();
+        public event CookDelegate Processed;
+
+        public Cook()
+        {
+            
+        }
+        public void Subscribe(CookDelegate cookDelegate) 
+        {
+            Processed += cookDelegate;
+        }
+
+        public void Process(TableRequests requests)
         {
             if (requests.IsCooked)
             {
@@ -31,6 +45,7 @@ namespace SimpleRestaurant2.Models
             }
 
             requests.IsCooked = true;
+            Processed?.Invoke();
         }
     }
 }

@@ -10,12 +10,20 @@ namespace SimpleRestaurant2.Models
 {
     public class Server
     {
+        public delegate void ServerDelegate(TableRequests tableRequests);
+        public event ServerDelegate Ready;
+
         private int _customerCount = 0;
         public int CustomerCount { get => _customerCount; }
         private TableRequests _requests;
+        public string Results { get; private set; }
         public Server()
         {
             _requests = new TableRequests();
+        }
+        public void Subscribe(ServerDelegate serverDelegate)
+        {
+            Ready += serverDelegate;
         }
 
         public void Recieve(int chickenQuantity, int eggQuantity, string drinkInput)
@@ -47,17 +55,7 @@ namespace SimpleRestaurant2.Models
             _customerCount++;
         }
 
-        public void SendRequests()
-        {
-            if (_requests.IsEmpty)
-            {
-                throw new InvalidOperationException("There weren't any valid requests yet.");
-            }
-
-            Cook.Process(_requests);
-        }
-
-        public string ServeRequests()
+        public void ServeRequests()
         {
             if (_requests.IsEmpty)
             {
@@ -78,7 +76,15 @@ namespace SimpleRestaurant2.Models
 
             _requests = new TableRequests();
             _customerCount = 0;
-            return result.ToString();
+            Results = result.ToString();
+        }
+
+        public void OnServerFinishedRecording()
+        {
+            if (Ready is not null)
+            {
+                Ready?.Invoke(_requests);
+            }
         }
     }
 }
