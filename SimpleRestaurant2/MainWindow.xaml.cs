@@ -24,10 +24,10 @@ namespace SimpleRestaurant2
 
             // subscribing Process method to ServerRecoerdedOrders event
             _server.Subscribe(_cook.Process);
-            // subscribing OnFoodPrepared with a TextBlock argument usinf lambda expression
-            _cook.Subscribe(() => OnFoodPrepared(resultsTextBlock));
             // subscribing ServeRequests method to CookPreparedFood event
             _cook.Subscribe(_server.ServeRequests);
+            // subscribing OnFoodPrepared with a TextBlock argument usinf lambda expression
+            _cook.Subscribe(() => OnFoodPrepared(resultsTextBlock));
 
             drinksComboBox.ItemsSource = new string[]{ "Tea", "Coca-Cola", "Pepsi", "No drink"};
             drinksComboBox.SelectedValue = "No drink";
@@ -71,8 +71,8 @@ namespace SimpleRestaurant2
         {
             try
             {
-                _server.OnServerFinishedRecording();
                 resultsTextBlock.Text += "\nCook received all the requests";
+                _server.OnServerFinishedRecording();
             }
             catch (Exception ex)
             {
@@ -95,6 +95,7 @@ namespace SimpleRestaurant2
         private void OnFoodPrepared(TextBlock textBlock)
         {
             textBlock.Text += "\nCook prepared all the food";
+            textBlock.Text += _server.Results;
         }
     }
 }
