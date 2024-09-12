@@ -53,8 +53,8 @@ namespace SimpleRestaurant2
             {
                 try
                 {
-                    _server.Recieve(chickenQuantity, eggQuantity, drinksComboBox.SelectedValue.ToString());
-                    resultsTextBlock.Text += "\nServer received order from customer " + (_server.CustomerCount - 1);
+                    _server.Recieve(chickenQuantity, eggQuantity, drinksComboBox.SelectedValue.ToString(), nameInput.Text);
+                    resultsTextBlock.Text += "\nServer received order from customer " + (nameInput.Text);
                 }
                 catch (Exception ex)
                 {

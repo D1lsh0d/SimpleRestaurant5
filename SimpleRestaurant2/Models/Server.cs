@@ -26,7 +26,7 @@ namespace SimpleRestaurant2.Models
             Ready += serverDelegate;
         }
 
-        public void Recieve(int chickenQuantity, int eggQuantity, string drinkInput)
+        public void Recieve(int chickenQuantity, int eggQuantity, string drinkInput, string customerName)
         {
             Drink drink;
             switch (drinkInput)
@@ -48,6 +48,7 @@ namespace SimpleRestaurant2.Models
                     break;
             }
 
+            _requests.customers[_customerCount].Name = customerName;
             _requests.Add(_customerCount, new Chicken(chickenQuantity));
             _requests.Add(_customerCount, new Egg(eggQuantity));
             _requests.Add(_customerCount, drink);
@@ -66,7 +67,7 @@ namespace SimpleRestaurant2.Models
             for (int i = 0; i < _customerCount; i++)
             {
                 var customerRequest = _requests[i];
-                var line = new StringBuilder($"Customer {i} is served ");
+                var line = new StringBuilder($"Customer {_requests.customers[i].Name} is served ");
                 foreach (IMenuItem item in customerRequest)
                 {
                     line.Append(item.Serve());

@@ -2,11 +2,10 @@
 {
     public class Customer
     {
-        public string Name { get; private set; }
+        public string Name { get; set; }
         public IMenuItem[] customerRequests;
-        public Customer(string name)
+        public Customer()
         {
-            Name = name;
             customerRequests = new IMenuItem[3];
         }
 
