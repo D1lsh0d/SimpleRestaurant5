@@ -2,7 +2,7 @@
 {
     public class TableRequests
     {
-        private Customer[] customers;
+        public Customer[] customers;
         private bool _isCooked;
         public bool IsCooked
         {
@@ -63,5 +63,7 @@
             customers[customer].AddMenuItem(menuItem);
             _isEmpty = false;
         }
+
+
     }
 }

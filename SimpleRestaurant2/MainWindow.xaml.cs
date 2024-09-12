@@ -17,12 +17,18 @@ namespace SimpleRestaurant2
     public partial class MainWindow : Window
     {
         private Server _server = new Server();
-
+        private Cook _cook = new Cook();
         public MainWindow()
         {
             InitializeComponent();
 
-            // set the ComboBox's ItemsSource to the Enum values
+            // subscribing Process method to ServerRecoerdedOrders event
+            _server.Subscribe(_cook.Process);
+            // subscribing OnFoodPrepared with a TextBlock argument usinf lambda expression
+            _cook.Subscribe(() => OnFoodPrepared(resultsTextBlock));
+            // subscribing ServeRequests method to CookPreparedFood event
+            _cook.Subscribe(_server.ServeRequests);
+
             drinksComboBox.ItemsSource = new string[]{ "Tea", "Coca-Cola", "Pepsi", "No drink"};
             drinksComboBox.SelectedValue = "No drink";
         }
@@ -47,8 +53,8 @@ namespace SimpleRestaurant2
             {
                 try
                 {
-                    _server.Recieve(chickenQuantity, eggQuantity, drinksComboBox.SelectedValue.ToString());
-                    resultsTextBlock.Text += "\nServer received order from customer " + (_server.CustomerCount - 1);
+                    _server.Recieve(chickenQuantity, eggQuantity, drinksComboBox.SelectedValue.ToString(), nameInput.Text);
+                    resultsTextBlock.Text += "\nServer received order from customer " + (nameInput.Text);
                 }
                 catch (Exception ex)
                 {
@@ -65,28 +71,30 @@ namespace SimpleRestaurant2
         {
             try
             {
+                _server.OnServerFinishedRecording();
                 resultsTextBlock.Text += "\nCook received all the requests";
-                _server.SendRequests();
             }
             catch (Exception ex)
             {
                 resultsTextBlock.Text += $"\nError: {ex.Message}";
             }
-
-            Thread.Sleep(2000);
-            resultsTextBlock.Text += "\nCook prepared all the food";
         }
 
         private void serveRequestsButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                resultsTextBlock.Text += _server.ServeRequests();
+                resultsTextBlock.Text += _server.Results;
             }
             catch (Exception ex)
             {
                 resultsTextBlock.Text += $"\nError: {ex.Message}";
             }
+        }
+
+        private void OnFoodPrepared(TextBlock textBlock)
+        {
+            textBlock.Text += "\nCook prepared all the food";
         }
     }
 }
