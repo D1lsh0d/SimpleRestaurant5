@@ -1,4 +1,5 @@
 ﻿using SimpleRestaurant2.Models.Food;
+using System.Collections.ObjectModel;
 using static SimpleRestaurant2.Models.Server;
 
 namespace SimpleRestaurant2.Models
@@ -25,8 +26,8 @@ namespace SimpleRestaurant2.Models
                 throw new Exception("Order for that table was already cooked");
             }
 
-            IMenuItem[] chickens = requests[typeof(Chicken)];
-            IMenuItem[] eggs = requests[typeof(Egg)];
+            Collection<IMenuItem> chickens = requests[typeof(Chicken)];
+            Collection<IMenuItem> eggs = requests[typeof(Egg)];
 
             foreach (Chicken chicken in chickens) 
             {

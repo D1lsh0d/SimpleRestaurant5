@@ -1,24 +1,20 @@
-﻿namespace SimpleRestaurant2.Models
+﻿using System.Collections.ObjectModel;
+using System.Linq;
+
+namespace SimpleRestaurant2.Models
 {
-    public class Customer
+    public struct Customer
     {
         public string Name { get; set; }
-        public IMenuItem[] customerRequests;
+        public Collection<IMenuItem> Requests = new Collection<IMenuItem>();
+
         public Customer()
         {
-            customerRequests = new IMenuItem[3];
         }
 
         public void AddMenuItem(IMenuItem menuItem)
         {
-            for (int i = 0; i < customerRequests.Length; i++)
-            {
-                if (customerRequests[i] is null)
-                {
-                    customerRequests[i] = menuItem;
-                    return;
-                }
-            }
+            Requests.Add(menuItem);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace SimpleRestaurant2.Models
+﻿using System.Collections.ObjectModel;
+
+namespace SimpleRestaurant2.Models
 {
     public class TableRequests
     {
@@ -29,30 +31,27 @@
             }
         }
 
-        public IMenuItem[] this[Type type]
+        public Collection<IMenuItem> this[Type type]
         {
             get
             {
-                IMenuItem[] itemsOfType = new IMenuItem[8];     //temp array
-                int count = 0;  //count of same type objects
+                Collection<IMenuItem> itemsOfType = new();     //temp array
 
                 foreach (var customer in customers)
                 {
-                    foreach (var request in customer.customerRequests)
+                    foreach (var request in customer.Requests)
                     {
                         if (request is not null && request.GetType() == type)
                         {
-                            itemsOfType[count++] = request;     //filling temp array with same type objects
+                            itemsOfType.Add(request);     //filling temp array with same type objects
                         }
                     }
                 }
 
-                IMenuItem[] result = new IMenuItem[count];      
-                Array.Copy(itemsOfType, result, count);         //copying non-null objects to a new array
-                return result;
+                return itemsOfType;
             }
         }
-        public IMenuItem[] this[int customer] => customers[customer].customerRequests;
+        public Collection<IMenuItem> this[int Id] => customers[Id].Requests;
 
         public void Add(int customer, IMenuItem menuItem)
         {
