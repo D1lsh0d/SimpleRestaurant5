@@ -63,6 +63,11 @@ namespace SimpleRestaurant2.Models
                 throw new InvalidOperationException("There weren't any valid requests yet.");
             }
 
+            if (_requests.IsServed)
+            {
+                throw new InvalidOperationException("The requests were already served!");
+            }
+
             var result = new StringBuilder("\n");
             for (int i = 0; i < _customerCount; i++)
             {
@@ -72,10 +77,9 @@ namespace SimpleRestaurant2.Models
                 {
                     line.Append(item.Serve());
                 }
-                result.AppendLine(line.ToString());
             }
 
-            _requests = new TableRequests();
+            _requests.IsServed = true;
             _customerCount = 0;
             Results = result.ToString();
         }

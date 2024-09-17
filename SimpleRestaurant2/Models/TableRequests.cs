@@ -15,6 +15,7 @@
                 }
             }
         }
+        public bool IsServed { get; set; }
         private bool _isEmpty = true;
         public bool IsEmpty { get => _isEmpty; }
         
@@ -63,7 +64,5 @@
             customers[customer].AddMenuItem(menuItem);
             _isEmpty = false;
         }
-
-
     }
 }

@@ -84,6 +84,7 @@ namespace SimpleRestaurant2
         {
             try
             {
+                _server.ServeRequests();
                 resultsTextBlock.Text += _server.Results;
             }
             catch (Exception ex)
