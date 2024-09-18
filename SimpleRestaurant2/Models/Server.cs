@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using SimpleRestaurant2.Models.Food;
 using SimpleRestaurant2.Models.Drinks;
+using System.Collections.ObjectModel;
+using System.Net.Security;
+using System.CodeDom;
 
 namespace SimpleRestaurant2.Models
 {
@@ -67,15 +70,26 @@ namespace SimpleRestaurant2.Models
             {
                 throw new InvalidOperationException("The requests were already served!");
             }
-
+            
             var result = new StringBuilder("\n");
-            for (int i = 0; i < _customerCount; i++)
+            // serving drinks first
+            foreach (Customer customer in _requests)
             {
-                var customerRequest = _requests[i];
-                var line = new StringBuilder($"Customer {_requests.customers[i].Name} is served ");
-                foreach (IMenuItem item in customerRequest)
+                // cheking if IMenuItem object is inherited from Drink class
+                var drink = customer.Requests.FirstOrDefault(drink => drink is Drink);
+                var line = new StringBuilder($"Customer {customer.Name} is served {drink?.Serve()}");
+                result.AppendLine(line.ToString());
+            }
+            // serving food
+            foreach (Customer customer in _requests)
+            {
+                var line = new StringBuilder($"Customer {customer.Name} is served ");
+                foreach (IMenuItem item in customer.Requests)
                 {
-                    line.Append(item.Serve());
+                    if (item is CookedFood)
+                    {
+                        line.Append(item.Serve());
+                    }
                 }
             }
 

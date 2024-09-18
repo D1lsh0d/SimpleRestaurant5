@@ -1,34 +1,28 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections;
+using System.Collections.ObjectModel;
 
 namespace SimpleRestaurant2.Models
 {
-    public class TableRequests
+    public class TableRequests : IEnumerable<Customer>
     {
-        public Customer[] customers;
-        private bool _isCooked;
+        public Collection<Customer> customers = new();
         public bool IsCooked
         {
-            get => _isCooked;
+            get => IsCooked;
             set
             {
                 if (value != false)
                 {
-                    _isCooked = value;
+                    IsCooked = value;
                 }
             }
         }
         public bool IsServed { get; set; }
-        private bool _isEmpty = true;
-        public bool IsEmpty { get => _isEmpty; }
+        public bool IsEmpty { private set; get; }
         
         public TableRequests()
         {
-            customers = new Customer[8];
-            // inizializing customers
-            for (int i = 0; i < 8; i++)
-            {
-                customers[i] = new Customer();
-            }
+
         }
 
         public Collection<IMenuItem> this[Type type]
@@ -51,17 +45,94 @@ namespace SimpleRestaurant2.Models
                 return itemsOfType;
             }
         }
-        public Collection<IMenuItem> this[int Id] => customers[Id].Requests;
-
-        public void Add(int customer, IMenuItem menuItem)
+        public Collection<IMenuItem> this[string customerName] 
         {
-            if (customer >= 8)
+            get 
+            { 
+                var customer = customers.FirstOrDefault(c => c.Name == customerName);
+                
+                if (customer is null)
+                {
+                    throw new InvalidOperationException("Customer not found");
+                }
+                
+                return customer.Requests;
+            }
+        }
+
+        public void Add(int customerId, IMenuItem menuItem)
+        {
+            if (customerId > 7)
             {
                 throw new Exception("Can't serve more than 8 customers at once");
             }
             
-            customers[customer].AddMenuItem(menuItem);
-            _isEmpty = false;
+            customers[customerId].Requests.Add(menuItem);
+            IsEmpty = false;
+        }
+
+        public void Add<T>(string customerName, int? quantity = null) where T : IMenuItem
+        {
+            if (customers.Count > 7)
+            {
+                throw new Exception("Can't serve more than 8 customers at once");
+            }
+
+            var customer = customers.FirstOrDefault(c => c.Name == customerName);
+
+            IMenuItem? menuItem;
+
+            // Check if the type has a constructor that accepts an int (for quantity)
+            var constructor = typeof(T).GetConstructor(new[] { typeof(int) });
+
+            if (constructor != null && quantity.HasValue)
+            {
+                // If a constructor with int exists and quantity is provided, use it
+                menuItem = (IMenuItem)constructor.Invoke(new object[] { quantity.Value });
+            }
+            else
+            {
+                // If no quantity constructor, assume a parameterless constructor exists
+                menuItem = Activator.CreateInstance(typeof(T)) as IMenuItem;
+            }
+
+            if (customer is null)
+            {
+                // If customer doesn't exist, create a new one
+                customer = new Customer(customerName);
+                customers.Add(customer);
+            }
+
+            // Add the menu item request with the quantity
+            customer.Requests.Add(menuItem);
+        }
+
+        public Collection<IMenuItem> Get<T>() where T : IMenuItem
+        {
+            Collection<IMenuItem> itemsOfType = new();     //temp array
+
+            foreach (var customer in customers)
+            {
+                foreach (var request in customer.Requests)
+                {
+                    if (request is not null && request.GetType() == typeof(T))
+                    {
+                        itemsOfType.Add(request);     //filling temp array with same type objects
+                    }
+                }
+            }
+
+            return itemsOfType;
+        }
+
+        public IEnumerator<Customer> GetEnumerator()
+        {
+            return customers.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
