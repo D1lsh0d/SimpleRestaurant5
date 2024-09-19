@@ -26,8 +26,8 @@ namespace SimpleRestaurant2.Models
                 throw new Exception("Order for that table was already cooked");
             }
 
-            Collection<IMenuItem> chickens = requests[typeof(Chicken)];
-            Collection<IMenuItem> eggs = requests[typeof(Egg)];
+            Collection<IMenuItem> chickens = requests.Get<Chicken>();
+            Collection<IMenuItem> eggs = requests.Get<Egg>();
 
             foreach (Chicken chicken in chickens) 
             {

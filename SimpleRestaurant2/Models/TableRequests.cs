@@ -5,24 +5,28 @@ namespace SimpleRestaurant2.Models
 {
     public class TableRequests : IEnumerable<Customer>
     {
-        public Collection<Customer> customers = new();
+        public Collection<Customer> customers;
+        private bool _isCooked;
+        private bool _isServed;
+        private bool _isEmpty;
+
         public bool IsCooked
         {
-            get => IsCooked;
+            get => _isCooked;
             set
             {
                 if (value != false)
                 {
-                    IsCooked = value;
+                    _isCooked = value;
                 }
             }
         }
-        public bool IsServed { get; set; }
-        public bool IsEmpty { private set; get; }
-        
+        public bool IsServed { get => _isServed; set => _isServed = value; }
+        public bool IsEmpty { get => _isEmpty; private set => _isEmpty = value; }
+
         public TableRequests()
         {
-
+            customers = new Collection<Customer>() { };
         }
 
         public Collection<IMenuItem> this[Type type]
@@ -66,7 +70,7 @@ namespace SimpleRestaurant2.Models
             {
                 throw new Exception("Can't serve more than 8 customers at once");
             }
-            
+
             customers[customerId].Requests.Add(menuItem);
             IsEmpty = false;
         }
@@ -109,18 +113,10 @@ namespace SimpleRestaurant2.Models
 
         public Collection<IMenuItem> Get<T>() where T : IMenuItem
         {
-            Collection<IMenuItem> itemsOfType = new();     //temp array
-
-            foreach (var customer in customers)
-            {
-                foreach (var request in customer.Requests)
-                {
-                    if (request is not null && request.GetType() == typeof(T))
-                    {
-                        itemsOfType.Add(request);     //filling temp array with same type objects
-                    }
-                }
-            }
+            Collection<IMenuItem> itemsOfType = new(customers
+                .SelectMany(customer => customer.Requests)
+                .Where(request => request is not null && request.GetType() == typeof(T))
+                .ToList());
 
             return itemsOfType;
         }

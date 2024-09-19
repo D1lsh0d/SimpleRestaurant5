@@ -51,7 +51,15 @@ namespace SimpleRestaurant2.Models
                     break;
             }
 
-            _requests.customers[_customerCount].Name = customerName;
+            try
+            {
+                _requests.customers[_customerCount].Name = customerName;
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                _requests.customers.Add(new Customer(customerName));
+            }
+
             _requests.Add(_customerCount, new Chicken(chickenQuantity));
             _requests.Add(_customerCount, new Egg(eggQuantity));
             _requests.Add(_customerCount, drink);
@@ -91,6 +99,7 @@ namespace SimpleRestaurant2.Models
                         line.Append(item.Serve());
                     }
                 }
+                result.AppendLine(line.ToString());
             }
 
             _requests.IsServed = true;
