@@ -102,6 +102,7 @@ namespace SimpleRestaurant2.Models
                 result.AppendLine(line.ToString());
             }
 
+            if (_requests.rottenEggCount > 0) { result.AppendLine($"{_requests.rottenEggCount} rotten eggs found"); }
             _requests.IsServed = true;
             _customerCount = 0;
             Results = result.ToString();

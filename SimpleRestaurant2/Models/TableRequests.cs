@@ -6,10 +6,11 @@ namespace SimpleRestaurant2.Models
     public class TableRequests : IEnumerable<Customer>
     {
         public Collection<Customer> customers;
+        public int rottenEggCount = 0;
         private bool _isCooked;
         private bool _isServed;
         private bool _isEmpty;
-
+        
         public bool IsCooked
         {
             get => _isCooked;

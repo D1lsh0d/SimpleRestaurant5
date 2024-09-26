@@ -9,7 +9,7 @@ namespace SimpleRestaurant2.Models
         
         public delegate void CookDelegate();
         public event CookDelegate Processed;
-
+        
         public Cook()
         {
             
@@ -39,9 +39,16 @@ namespace SimpleRestaurant2.Models
             {
                 using (egg)
                 {
-                    egg.Crack();
-                    egg.DiscardShell();
-                    egg.Cook();
+                    try
+                    {
+                        egg.Crack();
+                        egg.DiscardShell();
+                        egg.Cook();
+                    }
+                    catch (Exception)
+                    {
+                        requests.rottenEggCount++;
+                    }
                 }
             }
 
