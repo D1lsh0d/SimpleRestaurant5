@@ -2,14 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using SimpleRestaurant2.Models.Food;
-using SimpleRestaurant2.Models.Drinks;
-using System.Collections.ObjectModel;
-using System.Net.Security;
-using System.CodeDom;
+using SimpleRestaurant4.Models.Food;
+using SimpleRestaurant4.Models.Drinks;
 
-namespace SimpleRestaurant2.Models
+
+namespace SimpleRestaurant4.Models
 {
     public class Server
     {

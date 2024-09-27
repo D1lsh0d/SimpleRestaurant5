@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace SimpleRestaurant2.Models
+namespace SimpleRestaurant4.Models
 {
     public class Customer
     {

@@ -1,8 +1,8 @@
-﻿using SimpleRestaurant2.Models.Food;
+﻿using SimpleRestaurant4.Models.Food;
 using System.Collections.ObjectModel;
-using static SimpleRestaurant2.Models.Server;
+using static SimpleRestaurant4.Models.Server;
 
-namespace SimpleRestaurant2.Models
+namespace SimpleRestaurant4.Models
 {
     public class Cook
     {

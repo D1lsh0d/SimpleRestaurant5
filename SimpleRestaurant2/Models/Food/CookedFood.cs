@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleRestaurant2.Models.Food
+namespace SimpleRestaurant4.Models.Food
 {
     public abstract class CookedFood : IMenuItem
     {

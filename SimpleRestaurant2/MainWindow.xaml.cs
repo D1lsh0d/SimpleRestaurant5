@@ -1,4 +1,4 @@
-﻿using SimpleRestaurant2.Models;
+﻿using SimpleRestaurant4.Models;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -9,7 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SimpleRestaurant2
+namespace SimpleRestaurant4
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

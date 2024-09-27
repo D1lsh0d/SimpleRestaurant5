@@ -1,4 +1,4 @@
-﻿namespace SimpleRestaurant2.Models.Drinks
+﻿namespace SimpleRestaurant4.Models.Drinks
 {
     public sealed class Pepsi : Drink
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.ObjectModel;
 
-namespace SimpleRestaurant2.Models
+namespace SimpleRestaurant4.Models
 {
     public class TableRequests : IEnumerable<Customer>
     {

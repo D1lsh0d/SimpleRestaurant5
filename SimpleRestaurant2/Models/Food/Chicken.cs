@@ -1,4 +1,4 @@
-﻿namespace SimpleRestaurant2.Models.Food
+﻿namespace SimpleRestaurant4.Models.Food
 {
     public sealed class Chicken : CookedFood, IMenuItem
     {
