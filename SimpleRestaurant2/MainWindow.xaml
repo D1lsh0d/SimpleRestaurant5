@@ -74,16 +74,9 @@
                 <Label>Egg quality:</Label>
                 <Label Name="eggQualityLabel" Width="50">0</Label>
             </StackPanel>
-            <Button
-                Name="serveRequestsButton"
-                Margin="0 5 0 10"
-                Width="300"
-                Click="serveRequestsButton_Click">        
-                Serve prepared food to the Customers
-            </Button>
             <Label>Results:</Label>
             <ScrollViewer
-                Height="200">
+                Height="250">
                 <TextBlock
                     Name="resultsTextBlock"
                     TextWrapping="Wrap">

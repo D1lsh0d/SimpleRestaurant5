@@ -16,6 +16,7 @@ namespace SimpleRestaurant4.Models
         private int _customerCount = 0;
         public int CustomerCount { get => _customerCount; }
         private TableRequests _requests;
+        public TableRequests Requests { get => _requests; }
         public string Results { get; private set; }
         public Server()
         {

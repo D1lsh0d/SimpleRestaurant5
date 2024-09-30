@@ -13,7 +13,7 @@ namespace SimpleRestaurant4
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
-    /// </summary>
+    /// </summary>\
     public partial class MainWindow : Window
     {
         private Server _server = new Server();
@@ -72,20 +72,14 @@ namespace SimpleRestaurant4
             try
             {
                 resultsTextBlock.Text += "\nCook received all the requests";
-                _server.OnServerFinishedRecording();
-            }
-            catch (Exception ex)
-            {
-                resultsTextBlock.Text += $"\nError: {ex.Message}";
-            }
-        }
 
-        private void serveRequestsButton_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                _server.ServeRequests();
-                resultsTextBlock.Text += _server.Results;
+                Action<TableRequests> prepareRequests = _cook.Process;
+                Task cookTask = new Task(() => prepareRequests(_server.Requests));
+
+                Action serveRequests = _server.ServeRequests;
+                Task serveTask = new Task(serveRequests);
+
+                _server.OnServerFinishedRecording();
             }
             catch (Exception ex)
             {
